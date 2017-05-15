@@ -3,22 +3,13 @@ const hbs = require('hbs'),
     bodyParser = require('body-parser'),
     morgan = require('morgan'),
     jwt = require('jsonwebtoken'),
-    mongoose = require('mongoose');
-
-const config = require('./server/config');
-const User = require('./models/user');
-
-// Routes import
-const index = require('./routes/index');
-const admin = require('./routes/admin');
-const login = require('./routes/login');
-const register = require('./routes/signup');
+    mongoose = require('mongoose'),
+    routes = require('./server/routes');
 
 let app = express();
 const port = process.env.PORT || 4000;
-
-mongoose.connect(config.database);
-app.set('appsecret', config.secret);
+const url = app.get('env') === 'development'
+    ? 'mongodb://localhost:27017/mTracker' : '';
 
 // view engine setup
 app.set('views', `${__dirname}/views`);
@@ -26,16 +17,19 @@ app.set('view engine', 'hbs');
 app.set('view options', { layout: 'layouts/main' });
 
 app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// Get defined routes from routes.js
+const router = routes.initialise(express.Router());
+app.use('/', router);
 
 app.use(express.static(`${__dirname}/public`));
 
-app.use('/', index);
-app.use('/admin', admin);
-// app.use('/register', register);
-// app.use('/login', login);
-
+// mongoose.connect(config.database);
+// mongoose.connection.on('open', () => {
+//     console.log('Mongoose connected');
+// });
 
 app.listen(port, () => {
     console.log(`Server up: http://localhost:${port}`);
