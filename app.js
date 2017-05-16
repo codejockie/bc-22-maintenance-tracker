@@ -26,10 +26,13 @@ app.use('/', router);
 
 app.use(express.static(`${__dirname}/public`));
 
-// mongoose.connect(config.database);
-// mongoose.connection.on('open', () => {
-//     console.log('Mongoose connected');
-// });
+mongoose.connect(url);
+mongoose.connection.on('open', () => {
+    console.log('Mongoose connected');
+});
+mongoose.connection.on('close', () => {
+    console.log('Mongoose disconnected');
+});
 
 app.listen(port, () => {
     console.log(`Server up: http://localhost:${port}`);
