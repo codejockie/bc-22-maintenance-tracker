@@ -1,0 +1,30 @@
+<h3>Maintenance Personnel</h3>
+{{#if results}}
+<table class="table table-inverse">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Email</th>
+            <th>Phone</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#results}}
+        <tr>
+            <td>{{inc @index}}</td>
+            <td>{{firstname}}</td>
+            <td>{{lastname}}</td>
+            <td>{{email}}</td>
+            <td>{{phone}}</td>
+        </tr>
+        {{/results}}
+    </tbody>
+</table>
+{{else}}
+<div class="alert alert-warning fade show" role="alert">
+    <p>You currently do not have no maintenance personnel. Add and they will show up here.</p>
+    <p>Click on the button below to proceed.</p>
+</div>
+<a href="/admin/new" class="btn btn-primary">Add</a> {{/if}}

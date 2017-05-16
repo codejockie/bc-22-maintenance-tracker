@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link {{#if active.dashboard}}active{{/if}}" href="/admin/dashboard">Maintenance</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {{#if active.personnel}}active{{/if}}" href="/admin/new">New Personnel</a>
+        </li>
+    </ul>
+
+    <div class="container">
+        {{{ body }}}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    <script src="/js/scripts.js"></script>
+</body>
+
+</html>

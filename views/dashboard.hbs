@@ -8,6 +8,7 @@
     {{msg}}
 </div>
 {{/if}}
+{{#if results}}
 <table class="table table-inverse">
     <thead>
         <tr>
@@ -36,3 +37,8 @@
         {{/results}}
     </tbody>
 </table>
+{{else}}
+<div class="alert alert-warning fade show" role="alert">
+    <p>Oop! Nothing to show here. No Request have been logged. Please log a request and try again.</p>
+</div>
+{{/if}}

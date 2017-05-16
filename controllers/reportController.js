@@ -25,7 +25,6 @@ module.exports = {
             };
             
             if (err) {
-                console.log(err);
                 vm.msg = 'An error occured.';
                 vm.class = 'danger';
             }

@@ -4,7 +4,9 @@ module.exports = {
     index: (req, res) => {
         models.Report.find((err, results) => {
             const vm = {
-                results
+                results,
+                active: { dashboard: true },
+                layout: 'layouts/admin'
             };
             res.render('dashboard', vm);
         });
@@ -25,5 +27,11 @@ module.exports = {
                 res.render('dashboard', vm);
             });
         }
+    },
+    approve: (req, res) => {
+        
+    },
+    reject: (req, res) => {
+        
     }
 };
