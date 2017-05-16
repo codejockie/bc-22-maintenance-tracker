@@ -10,7 +10,7 @@ const hbs = require('hbs'),
 let app = express();
 const port = process.env.PORT || 4000;
 const url = app.get('env') === 'development'
-    ? 'mongodb://localhost:27017/mTracker' : 'mongodb://jckennedy:kenchi10.K@ds143181.mlab.com:43181/mtracker';
+    ? 'mongodb://localhost:27017/mTracker' : 'mongodb://mTracker:passed@ds143181.mlab.com:43181/mtracker';
 
 // view engine setup
 app.set('views', `${__dirname}/views`);
@@ -30,9 +30,6 @@ app.use(express.static(`${__dirname}/public`));
 mongoose.connect(url);
 mongoose.connection.on('open', () => {
     console.log('Mongoose connected');
-});
-mongoose.connection.on('close', () => {
-    console.log('Mongoose disconnected');
 });
 
 app.listen(port, () => {
