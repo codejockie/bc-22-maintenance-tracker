@@ -33,8 +33,11 @@ module.exports = mongoose.model('Report', new Schema({
         default: new Date()
     },
     status: {
-        type: String,
-        default: 'unresolved',
+        type: Boolean,
+        default: false,
         required: true
+    },
+    comments: {
+        type: Array
     }
 }));

@@ -15,6 +15,7 @@ module.exports.initialise = (router) => {
 
     // POST
     router.post('/newreport', report.create);
+    router.post('/resolve', admin.resolve);
 
     return router;
 };

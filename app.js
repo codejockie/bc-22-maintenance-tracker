@@ -16,6 +16,9 @@ const url = app.get('env') === 'development'
 app.set('views', `${__dirname}/views`);
 app.set('view engine', 'hbs');
 app.set('view options', { layout: 'layouts/main' });
+hbs.registerHelper("inc", (value, options) => {
+    return parseInt(value) + 1;
+});
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));

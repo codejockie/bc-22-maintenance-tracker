@@ -3,6 +3,7 @@
 
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body>
@@ -35,6 +36,23 @@
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    <script src="/js/scripts.js"></script>
+    <script>
+    $('#resolve').on('click', () => {
+        const id = $(this).data().id;
+        console.log(id);
+        $.ajax({
+            method: "POST",
+            url: "/resolve",
+            data: { "id": id },
+            //  success: (result) => {
+            //     if(/* check if it is ok */) {
+            //         location.reload();
+            //     }
+            //  }
+        })
+    });
+</script>
 </body>
 
 </html>
