@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-module.exports = mongoose.model('Case', new Schema({
+mongoose.Promise = global.Promise;
+
+module.exports = mongoose.model('Report', new Schema({
     firstname: {
         type: String,
         required: true
@@ -29,5 +31,10 @@ module.exports = mongoose.model('Case', new Schema({
     collectionDate: {
         type: Date,
         default: new Date()
+    },
+    status: {
+        type: String,
+        default: 'unresolved',
+        required: true
     }
 }));

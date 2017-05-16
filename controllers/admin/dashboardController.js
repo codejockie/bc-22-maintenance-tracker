@@ -1,4 +1,4 @@
-const Case = require('../../models/Case');
+const models = require('../../models/index');
 
 module.exports = {
     index: (req, res) => {
