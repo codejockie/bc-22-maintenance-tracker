@@ -1,4 +1,4 @@
-const report = require('../../models/Case');
+const report = require('../models/Case');
 
 module.exports = {
     index: (req, res) => {
