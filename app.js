@@ -5,7 +5,11 @@ const hbs = require('hbs'),
     jwt = require('jsonwebtoken'),
     mongoose = require('mongoose'),
     routes = require('./server/routes'),
-    config = require('./server/config');
+    passport = require('passport'),
+    expressSession = require('express-session'),
+    bCrypt = require('bcrypt'),
+    flash = require('connect-flash'),
+    initPassport = require('./passport/init');
 
 let app = express();
 const port = process.env.PORT || 4000;
@@ -24,8 +28,17 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// Configure Passport
+app.use(expressSession({ secret: 'mTracker' }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+// Initialise passport
+initPassport(passport);
+
 // Get defined routes from routes.js
-const router = routes.initialise(express.Router());
+const router = routes.initialise(express.Router(), passport);
 app.use('/', router);
 
 app.use(express.static(`${__dirname}/public`));
