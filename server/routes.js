@@ -30,11 +30,7 @@ module.exports.initialise = (router, passport) => {
         failureRedirect: '/login',
         failureFlash: 'Invalid username or password'
     }), auth.login);
-    router.post('/signup', passport.authenticate('signup', {
-        successRedirect: '/login',
-        failureRedirect: '/signup',
-        failureFlash: true
-    }));
+    router.post('/signup', auth.register);
 
     return router;
 };

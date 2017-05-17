@@ -5,15 +5,32 @@ const Schema = mongoose.Schema;
 mongoose.Promise = global.Promise;
 
 let UserSchema = new Schema({
-    username: String,
-    password: String,
-    email: String,
+    username: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        unique: true,
+        required: true
+    },
     isAdmin: {
         type: Boolean,
         default: false
     },
-    firstname: String,
-    lastname: String
+    firstname: {
+        type: String,
+        required: true
+    },
+    lastname: {
+        type: String,
+        required: true
+    }
 });
 
 let User = module.exports = mongoose.model('User', UserSchema);

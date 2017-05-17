@@ -3,13 +3,17 @@ const models = require('../../models/index');
 module.exports = {
     index: (req, res) => {
         if (req.user.isAdmin) {
+            const currentDate = new Date().toISOString();
             models.Report.find((err, results) => {
-                const vm = {
-                    results,
-                    active: { dashboard: true },
-                    layout: 'layouts/admin'
-                };
-                res.render('dashboard', vm);
+                models.Report.find({ collectionDate: { $lt: currentDate } }).count((err, count) => {
+                    const vm = {
+                        results,
+                        count,
+                        active: { dashboard: true },
+                        layout: 'layouts/admin'
+                    };
+                    res.render('dashboard', vm);
+                });
             });
         } else {
             res.status(401).send('Unauthorised to view this page. Login as an admin to continue');

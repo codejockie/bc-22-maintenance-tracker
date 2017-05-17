@@ -40,17 +40,17 @@ a {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
-.form input[type="password"]{
+.form input[type="password"][name="confirmpassword"]{
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
-.form input[type="password"].nomargin{
+.form input[type="password"] {
 	margin-bottom: 0px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
-.form input[type="text"][name="lastName"] {
+.form input[id="password"] {
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -94,5 +94,27 @@ h1.error-message{
     color: red;
 }
 ul.user-details{
+    list-style: none;
+}
+
+ul.success li {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    list-style: none;
+}
+
+ul.error li {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
     list-style: none;
 }

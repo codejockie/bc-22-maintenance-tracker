@@ -1,5 +1,5 @@
-const express = require('express');
-const hbs = require('hbs'),
+const express = require('express'),
+    hbs = require('hbs'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
     morgan = require('morgan'),
@@ -7,9 +7,9 @@ const hbs = require('hbs'),
     routes = require('./server/routes'),
     passport = require('passport'),
     session = require('express-session'),
-    bCrypt = require('bcryptjs'),
-    flash = require('connect-flash'),
-    initPassport = require('./passport/init');
+    expressValidator = require('express-validator'),
+    bcrypt = require('bcryptjs'),
+    flash = require('express-flash-2');
 
 let app = express();
 const port = process.env.PORT || 4000;
@@ -29,6 +29,7 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(expressValidator());
 app.use(session({ secret: 'mTracker' }));
 app.use(flash());
 
