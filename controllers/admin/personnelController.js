@@ -42,7 +42,6 @@ module.exports = {
                 vm.msg = 'An error occured.';
                 vm.class = 'danger';
             }
-
             res.render('add', vm);
         });
     }
