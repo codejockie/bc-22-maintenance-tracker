@@ -8,30 +8,28 @@ const isAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
         return next();
     }
-
     res.redirect('/login');
 };
 
 module.exports.initialise = (router, passport) => {
-    router.get('/', isAuthenticated, home.index);
+    router.get('/', home.index);
     router.get('/login', auth.index);
     router.get('/logout', auth.logout);
     router.get('/signup', auth.signup);
-    router.get('/newreport', report.index);
-    router.get('/admin/dashboard', admin.index);
-    router.get('/admin/personnel', personnel.index);
-    router.get('/admin/new', personnel.new);
+    router.get('/newreport', isAuthenticated, report.index);
+    router.get('/admin/dashboard', isAuthenticated, admin.index);
+    router.get('/admin/personnel', isAuthenticated, personnel.index);
+    router.get('/admin/new', isAuthenticated, personnel.new);
 
 
     // POST
     router.post('/newreport', report.create);
     router.post('/resolve', admin.resolve);
     router.post('/admin/create', personnel.create);
-    router.post('/login', passport.authenticate('login', {
-        successRedirect: '/newreport',
-        failureRedirect: '/signup',
-        failureFlash: true
-    }));
+    router.post('/login', passport.authenticate('local', {
+        failureRedirect: '/login',
+        failureFlash: 'Invalid username or password'
+    }), auth.login);
     router.post('/signup', passport.authenticate('signup', {
         successRedirect: '/login',
         failureRedirect: '/signup',

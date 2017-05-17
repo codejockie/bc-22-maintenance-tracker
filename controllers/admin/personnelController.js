@@ -2,14 +2,18 @@ const models = require('../../models/index');
 
 module.exports = {
     index: (req, res) => {
-        models.Personnel.find((err, results) => {
-            const vm = {
-                results,
-                active: { personnel: true },
-                layout: 'layouts/admin'
-            };
-            res.render('personnel', vm);
-        });
+        if (req.user.isAdmin) {
+            models.Personnel.find((err, results) => {
+                const vm = {
+                    results,
+                    active: { personnel: true },
+                    layout: 'layouts/admin'
+                };
+                res.render('personnel', vm);
+            });
+        } else {
+            res.status(401).send('Unauthorised to view this page. Login as an admin to continue');
+        }
     },
     'new': (req, res) => {
         const vm = {

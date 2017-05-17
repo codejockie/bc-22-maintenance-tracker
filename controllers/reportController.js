@@ -2,7 +2,11 @@ const models = require('../models/index');
 
 module.exports = {
     index: (req, res) => {
-        res.render('newreport');
+        if (!req.user.isAdmin) {
+            res.render('newreport');
+        } else {
+            res.status(401).send('You are unauthorised to view this page.');
+        }
     },
     create: (req, res) => {
         const collDate = new Date().setDate(new Date().getDate() + 14);
@@ -14,8 +18,7 @@ module.exports = {
             problem: req.body.issue,
             type: req.body.type,
             dateCreated: req.body.startdate,
-            collectionDate: collDate,
-            status: 'unresolved'
+            collectionDate: collDate
         });
 
         newReport.save((err, report) => {
@@ -23,7 +26,7 @@ module.exports = {
                 msg: 'Report request successfully created.',
                 class: 'success'
             };
-            
+
             if (err) {
                 vm.msg = 'An error occured.';
                 vm.class = 'danger';
