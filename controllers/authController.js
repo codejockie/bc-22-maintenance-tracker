@@ -5,7 +5,10 @@ const models = require('../models/index');
 
 module.exports = {
     index: (req, res) => {
-        res.render('login', { message: req.flash('message') });
+        const vm = {
+            active: { login: true }
+        };
+        res.render('login', vm);
     },
     login: (req, res) => {
         console.log(req.user);
@@ -36,7 +39,10 @@ module.exports = {
         }
     },
     signup: (req, res) => {
-        res.render('register', { message: req.flash('message') });
+        const vm = {
+            active: { signup: true }
+        };
+        res.render('register', vm);
     }
 };
 

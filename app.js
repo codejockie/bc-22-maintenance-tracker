@@ -36,6 +36,11 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.get('*', (req, res, next) => {
+    app.locals.user = req.user || null;
+    next();
+});
+
 // Get defined routes from routes.js
 const router = routes.initialise(express.Router(), passport);
 app.use('/', router);
