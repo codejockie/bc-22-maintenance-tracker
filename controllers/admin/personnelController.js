@@ -17,7 +17,7 @@ module.exports = {
     },
     'new': (req, res) => {
         const vm = {
-            active: { personnel: true },
+            active: { newpersonnel: true },
             layout: 'layouts/admin'
         };
         res.render('add', vm);

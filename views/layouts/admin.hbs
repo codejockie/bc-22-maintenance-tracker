@@ -12,9 +12,9 @@
             <a class="nav-link {{#if active.dashboard}}active{{/if}}" href="/admin/dashboard">Maintenance</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{#if active.personnel}}active{{/if}}" href="/admin/new">New Personnel</a>
+            <a class="nav-link {{#if active.personnel}}active{{else if active.newpersonnel}}active{{/if}}" href="/admin/personnel">Personnel</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item justify-content-end">
             <a class="nav-link" href="/logout">Logout</a>
         </li>
     </ul>
