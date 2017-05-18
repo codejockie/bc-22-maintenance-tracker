@@ -16,14 +16,14 @@ module.exports.initialise = (router, passport) => {
     router.get('/login', auth.index);
     router.get('/logout', auth.logout);
     router.get('/signup', auth.signup);
-    router.get('/newreport', isAuthenticated, report.index);
+    router.get('/report', isAuthenticated, report.index);
     router.get('/admin/dashboard', isAuthenticated, admin.index);
     router.get('/admin/personnel', isAuthenticated, personnel.index);
     router.get('/admin/new', isAuthenticated, personnel.new);
 
 
     // POST
-    router.post('/newreport', report.create);
+    router.post('/report', report.create);
     router.post('/resolve', admin.resolve);
     router.post('/admin/create', personnel.create);
     router.post('/login', passport.authenticate('local', {

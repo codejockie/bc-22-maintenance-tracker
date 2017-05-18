@@ -16,6 +16,7 @@
             <th>Issue</th>
             <th>Type</th>
             <th>Status (Resolved?)</th>
+            <th>Assigned Personnel</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -25,12 +26,13 @@
             <td>{{inc @index}}</td>
             <td>{{problem}}</td>
             <td>{{type}}</td>
-            <td>{{status}}</td>
+            <td>{{resolveStatus}}</td>
+            <td>{{assignedPersonnel}}</td>
             <td>
-                {{#if status}}
-                <button type="button" class="btn btn-primary btn-sm" disabled>Mark as Resolved</button>
+                {{#if resolveStatus}}
+                <button type="button" class="btn btn-primary btn-sm" disabled>Resloved</button>
                 {{else}}
-                <button type="button" class="btn btn-primary btn-sm" data-id="{{_id}}">Mark as Resolved</button> 
+                <button type="button" class="resolve-button btn btn-primary btn-sm" data-id="{{_id}}">Mark as Resolved</button>
                 {{/if}}
                 <button type="button" class="btn btn-success btn-sm" data-id="{{_id}}">Approve</button>
                 <button type="button" class="btn btn-danger btn-sm" data-id="{{_id}}">Reject</button>

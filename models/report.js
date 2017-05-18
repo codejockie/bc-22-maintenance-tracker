@@ -32,9 +32,31 @@ module.exports = mongoose.model('Report', new Schema({
         type: Date,
         default: new Date()
     },
-    status: {
+    approvalStatus: {
         type: Boolean,
         default: false,
+        required: true
+    },
+    rejectionStatus: {
+        type: Boolean,
+        default: false,
+        required: true
+    },
+    resolveStatus: {
+        type: Boolean,
+        default: false,
+        required: true
+    },
+    assignedPersonnel: {
+        type: String,
+        required: true
+    },
+    personnelEmail: {
+        type: String,
+        required: true
+    },
+    personnelPhone: {
+        type: String,
         required: true
     },
     comments: {

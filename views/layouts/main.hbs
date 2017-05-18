@@ -22,9 +22,12 @@
                 </li>
             </ul>
             {{else}}
-            <ul class="navbar-nav mr-auto justify-content-end">
+            <ul class="nav justify-content-end">
                 <li class="nav-item {{#if active.login}}active{{/if}}">
                     <a class="nav-link" href="/login">Login</span></a>
+                </li>
+                <li class="nav-item {{#if active.signup}}active{{/if}}">
+                    <a class="nav-link" href="/signup">Register</span></a>
                 </li>
             </ul>
             {{/if}}

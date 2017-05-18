@@ -1,6 +1,15 @@
 <div class="row">
     <div class="col-md-4 offset-md-4">
         <h3 class="text-center">Register</h3>
+        {{#if flash.error}}
+        <div class="alert alert-danger alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <p>{{flash.error}}</p>
+            <p>Username and Email must be unique.</p>
+        </div>
+        {{/if}}
         <div class="signup-wall">
             {{#if errors}} 
             {{#each errors}}
@@ -12,6 +21,7 @@
                 <input class="form-control" type="email" name="email" placeholder="Email" required>
                 <input class="form-control" type="text" name="firstname" placeholder="Firstname" required>
                 <input class="form-control" type="text" name="lastname" placeholder="Lastname" required>
+                <input class="form-control" type="text" name="phone" placeholder="Phone number" required>
                 <input class="form-control" type="password" name="password" placeholder="Password" required>
                 <input class="form-control nomargin" type="password" name="confirmpassword" placeholder="Confirm Password" required>
 

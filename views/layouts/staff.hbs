@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link {{#if active.request}}active{{/if}}" href="/report">Request</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        </ul>
+        <hr />
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <small class="nav-link">
+                    Request Approval
+                    <span class="badge badge-pill badge-info">{{approvalCount}}</span>
+                </small>
+            </li>
+            <li class="nav-item">
+                <small class="nav-link">
+                    Request Rejection
+                    <span class="badge badge-pill badge-info">{{rejectionCount}}</span>
+                </small>
+            </li>
+        </ul>
+    </div>
+
+    <div class="container">
+        {{{ body }}}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    <script src="/js/scripts.js"></script>
+</body>
+
+</html>

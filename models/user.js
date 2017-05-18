@@ -5,6 +5,18 @@ const Schema = mongoose.Schema;
 mongoose.Promise = global.Promise;
 
 let UserSchema = new Schema({
+    firstname: {
+        type: String,
+        required: true
+    },
+    lastname: {
+        type: String,
+        required: true
+    },
+    phone: {
+        type: String,
+        required: true
+    },
     username: {
         type: String,
         unique: true,
@@ -22,14 +34,6 @@ let UserSchema = new Schema({
     isAdmin: {
         type: Boolean,
         default: false
-    },
-    firstname: {
-        type: String,
-        required: true
-    },
-    lastname: {
-        type: String,
-        required: true
     }
 });
 

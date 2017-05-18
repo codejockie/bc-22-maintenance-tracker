@@ -11,11 +11,11 @@ module.exports = {
         };
         res.render('login', vm);
     },
-    login: (req, res) => {
+    login: (req, res, next) => {
         if (req.user.isAdmin) {
             return res.redirect('/admin/dashboard');
         }
-        res.redirect('/newreport');
+        res.redirect('/report');
     },
     logout: (req, res) => {
         req.logout();
@@ -27,6 +27,7 @@ module.exports = {
         const email = req.body.email;
         const firstname = req.body.firstname;
         const lastname = req.body.lastname;
+        const phone = req.body.phone;
         const password = req.body.password;
         const confirmpassword = req.body.confirmpassword;
 
@@ -35,6 +36,7 @@ module.exports = {
         req.checkBody('lastname', 'Lastname field is required').notEmpty();
         req.checkBody('email', 'Email field is required').notEmpty();
         req.checkBody('email', 'You must use a valid email').isEmail();
+        req.checkBody('phone', 'Phone number is required').notEmpty();
         req.checkBody('password', 'Password field is required').notEmpty();
         req.checkBody('confirmpassword', 'Passwords do not match').equals(req.body.password);
 
@@ -46,21 +48,22 @@ module.exports = {
             });
         } else {
             const newUser = new models.User({
-                username,
-                email,
                 firstname,
                 lastname,
+                phone,
+                username,
+                email,
                 password
             });
-            
+
             User.createUser(newUser, (err, user) => {
                 if (err) {
-                    throw err;
+                    res.flash('error', 'An error occured. Kindly try again.');
+                    return res.redirect(301, '/signup');
                 }
-                console.log(user);
+                res.flash('success', 'Registration was successful.\nYou can now log in');
+                res.redirect(302, '/login');
             });
-            res.flash('success', 'Registration was successful.\nYou can now log in');
-            res.redirect(302, '/login');
         }
     },
     signup: (req, res) => {
@@ -83,9 +86,12 @@ passport.deserializeUser((id, done) => {
 
 passport.use(new LocalStrategy((username, password, done) => {
     models.User.getUserByUsername(username, (err, user) => {
-        if (err) { return done(err); }
+        if (err) {
+            res.flash('error', 'Invalid user.')
+            return done(err);
+        }
         if (!user) {
-            return done(null, false, { message: 'Unknown user' });
+            return done(null, false, res.flash('error', 'Invalid Username or Password.'));
         }
 
         models.User.comparePassword(password, user.password, (err, isMatch) => {
