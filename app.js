@@ -9,13 +9,14 @@ const express = require('express'),
     session = require('express-session'),
     expressValidator = require('express-validator'),
     bcrypt = require('bcryptjs'),
-    flash = require('express-flash-2');
+    flash = require('express-flash-2'),
+    env = require('./env');
 
 let app = express();
 const port = process.env.PORT || 4000;
 const url = app.get('env') === 'development'
     ? 'mongodb://localhost:27017/mTracker'
-    : 'mongodb://mTracker:passed@ds143181.mlab.com:43181/mtracker';
+    : process.env.DB;
 
 // view engine setup
 app.set('views', `${__dirname}/views`);
@@ -23,6 +24,9 @@ app.set('view engine', 'hbs');
 app.set('view options', { layout: 'layouts/main' });
 hbs.registerHelper("inc", (value, options) => {
     return parseInt(value) + 1;
+});
+hbs.registerHelper('currentYear', () => {
+    return new Date().getFullYear()
 });
 
 app.use(morgan('dev'));

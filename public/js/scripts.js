@@ -3,14 +3,19 @@
 $('.resolve-button').on('click', function () {
     var id = $(this).data().id;
     alert(id);
-    // $.ajax({
-    //     method: "POST",
-    //     url: "/resolve",
-    //     data: { "id": id },
-    //     success: (result) => {
-    //         if (result) {
-    //             location.reload();
-    //         }
-    //     }
-    // });
+    $.ajax({
+        method: "POST",
+        url: "/resolve",
+        data: { "id": id },
+        success: (result) => {
+            if (result) {
+                location.reload();
+            }
+        }
+    });
 });
+
+$('.reject-button').on('click', function () {
+    var id = $(this).data().id;
+    $('#rejectrequest').val(id);
+})

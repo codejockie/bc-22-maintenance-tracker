@@ -24,12 +24,11 @@ module.exports.initialise = (router, passport) => {
 
     // POST
     router.post('/report', report.create);
+    router.post('/approve', admin.approve);
+    router.post('/reject', admin.reject);
     router.post('/resolve', admin.resolve);
     router.post('/admin/create', personnel.create);
-    router.post('/login', passport.authenticate('local', {
-        failureRedirect: '/login',
-        failureFlash: 'Invalid username or password'
-    }), auth.login);
+    router.post('/login', passport.authenticate('local'), auth.login);
     router.post('/signup', auth.register);
 
     return router;

@@ -1,8 +1,20 @@
+{{#if flash.success}}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button> {{flash.success}}
+</div>
+{{else if flash.error}}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button> {{flash.error}}
+</div>
+{{/if}}
 <h3>Maintenance/Repairs Request </h3>
 <small>
     Notification <span class="badge badge-pill badge-danger">{{count}}</span>
-</small>
-{{#if msg}}
+</small> {{#if msg}}
 <div class="alert alert-{{class}} alert-dismissible fade show" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -29,13 +41,26 @@
             <td>{{resolveStatus}}</td>
             <td>{{assignedPersonnel}}</td>
             <td>
-                {{#if resolveStatus}}
-                <button type="button" class="btn btn-primary btn-sm" disabled>Resloved</button>
-                {{else}}
-                <button type="button" class="resolve-button btn btn-primary btn-sm" data-id="{{_id}}">Mark as Resolved</button>
-                {{/if}}
-                <button type="button" class="btn btn-success btn-sm" data-id="{{_id}}">Approve</button>
-                <button type="button" class="btn btn-danger btn-sm" data-id="{{_id}}">Reject</button>
+                <div class="row">
+                    {{#if resolveStatus}}
+                    <button type="button" class="btn btn-primary btn-sm" disabled>Resloved</button> 
+                    {{else}}
+                    <button type="button" class="resolve-button btn btn-primary btn-sm" data-id="{{_id}}">Mark as Resolved</button>                    
+                    {{/if}}
+                    {{#if approvalStatus}}
+                    <button type="submit" class="btn btn-success btn-sm" disabled>Approve</button>
+                    {{else}}
+                    <form action="/approve" method="POST" class="form-inline">
+                        <input type="hidden" name="approverequest" value="{{_id}}">
+                        <button type="submit" class="btn btn-success btn-sm">Approve</button>
+                    </form>
+                    {{/if}}
+                    {{#if rejectionStatus}}
+                    <button type="submit" class="reject-button btn btn-danger btn-sm" disabled>Reject/Comment</button>
+                    {{else}}
+                    <button type="submit" class="reject-button btn btn-danger btn-sm" data-toggle="modal" data-target="#commentModal" data-id="{{_id}}">Reject/Comment</button>
+                    {{/if}}
+                </div>
             </td>
         </tr>
         {{/results}}
@@ -46,3 +71,29 @@
     <p>Oop! Nothing to show here. No Request have been logged. Please log a request and try again.</p>
 </div>
 {{/if}}
+
+<div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add a comment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <form action="/reject" method="POST">
+                    <input type="hidden" name="rejectrequest" id="rejectrequest" value="">
+                    <div class="form-group">
+                        <label for="comment-text" class="form-control-label">Comment:</label>
+                        <textarea class="form-control" name="comment" id="comment-text"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Reject</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
