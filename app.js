@@ -10,8 +10,10 @@ const express = require('express'),
     expressValidator = require('express-validator'),
     bcrypt = require('bcryptjs'),
     flash = require('express-flash-2'),
-    env = require('./env');
+    dotenv = require('dotenv');
 
+
+dotenv.config();
 let app = express();
 const port = process.env.PORT || 4000;
 const url = app.get('env') === 'development'
