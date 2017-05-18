@@ -13,7 +13,6 @@ const isAuthenticated = (req, res, next) => {
 
 module.exports.initialise = (router, passport) => {
     router.get('/', home.index);
-    router.get('/login', auth.index);
     router.get('/logout', auth.logout);
     router.get('/signup', auth.signup);
     router.get('/report', isAuthenticated, report.index);

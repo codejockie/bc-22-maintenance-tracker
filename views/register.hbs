@@ -1,6 +1,5 @@
 <div class="row">
     <div class="col-md-4 offset-md-4">
-        <h3 class="text-center">Register</h3>
         {{#if flash.error}}
         <div class="alert alert-danger alert-dismissible fade show">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -11,11 +10,10 @@
         </div>
         {{/if}}
         <div class="signup-wall">
-            {{#if errors}} 
-            {{#each errors}}
+            {{#if errors}} {{#each errors}}
             <div class="col-md-4 offset-md-4 alert alert-danger">{{this.msg}}</div>
-            {{/each}} 
-            {{/if}}
+            {{/each}} {{/if}}
+            <h3 class="text-center">Register</h3>
             <form class="form" action="/signup" method="POST">
                 <input class="form-control" type="text" name="username" placeholder="Username" autofocus required>
                 <input class="form-control" type="email" name="email" placeholder="Email" required>

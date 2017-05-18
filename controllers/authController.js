@@ -5,12 +5,6 @@ const models = require('../models/index');
 const User = require('../models/user');
 
 module.exports = {
-    index: (req, res) => {
-        const vm = {
-            active: { login: true }
-        };
-        res.render('login', vm);
-    },
     login: (req, res, next) => {
         if (req.user.isAdmin) {
             return res.redirect('/admin/dashboard');
@@ -20,7 +14,7 @@ module.exports = {
     logout: (req, res) => {
         req.logout();
         res.flash('success', 'You are now logged out');
-        res.redirect('/login');
+        res.redirect('/');
     },
     register: (req, res) => {
         const username = req.body.username;
@@ -62,7 +56,7 @@ module.exports = {
                     return res.redirect(301, '/signup');
                 }
                 res.flash('success', 'Registration was successful.\nYou can now log in');
-                res.redirect(302, '/login');
+                res.redirect(302, '/');
             });
         }
     },

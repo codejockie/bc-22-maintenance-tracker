@@ -40,7 +40,7 @@
                 {{else}}
                 <ul class="nav justify-content-end">
                     <li class="nav-item {{#if active.login}}active{{/if}}">
-                        <a class="nav-link" href="/login">Login</span></a>
+                        <a class="nav-link" data-toggle="modal" data-target="#login-modal" href="#">Login</span></a>
                     </li>
                     <li class="nav-item {{#if active.signup}}active{{/if}}">
                         <a class="nav-link" href="/signup">Register</span></a>
@@ -50,6 +50,24 @@
             </div>
         </div>
     </nav>
+    
+    <!-- Login Modal -->
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="account-wall">
+                <h3 class="text-center">Login to Your Account</h3>
+                <img class="profile-img" src="/images/google_avatar.png" alt="login image">
+                <form class='form' action='/login' method='POST'>
+                    <input type="text" name="username" class="form-control" placeholder="Username" autofocus required>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                    <span class="clearfix"></span>
+                </form>
+                <a href="/signup" class="text-center new-account">Create an account</a>
+            </div>
+        </div>
+    </div>
 
     {{{ body }}}
 
