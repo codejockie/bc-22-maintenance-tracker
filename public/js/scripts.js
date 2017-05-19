@@ -2,7 +2,6 @@
 
 $('.resolve-button').on('click', function () {
     var id = $(this).data().id;
-    alert(id);
     $.ajax({
         method: "POST",
         url: "/resolve",
