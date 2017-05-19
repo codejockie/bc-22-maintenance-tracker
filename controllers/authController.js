@@ -86,7 +86,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-    models.User.getUserById(id, (err, user) => {
+    User.getUserById(id, (err, user) => {
         done(err, user);
     });
 });
