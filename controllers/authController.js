@@ -5,24 +5,35 @@ const User = require('../models/user');
 
 module.exports = {
     login: (req, res, next) => {
-        passport.authenticate('local', (err, user, info) => {
-            if (err) {
-                res.flash('error', 'An error occured, kindly try again');
-                return res.redirect(301, '/');
-            }
-            if (!user) {
-                res.flash('error', 'Username or Password incorrect.');
-                return res.redirect(301, '/');
-            }
-            req.logIn(user, (err) => {
-                if (err) { return next(err); }
-                if (req.user.isAdmin) {
-                    return res.redirect('/admin/dashboard');
-                }
-                res.redirect('/report');
-            });
-        })(req, res, next);
+        const username = req.body.username;
+        const password = req.body.password;
 
+        req.checkBody('username', 'Username field is required').notEmpty();
+        req.checkBody('password', 'Password field is required').notEmpty();
+        const errors = req.validationErrors();
+
+        if (errors) {
+            res.flash('error', 'Username and Password fields are required');
+            return res.redirect(301, '/');
+        } else {
+            passport.authenticate('local', (err, user, info) => {
+                if (err) {
+                    res.flash('error', 'An error occured, kindly try again');
+                    return res.redirect(301, '/');
+                }
+                if (!user) {
+                    res.flash('error', 'Username or Password incorrect.');
+                    return res.redirect(301, '/');
+                }
+                req.logIn(user, (err) => {
+                    if (err) { return next(err); }
+                    if (req.user.isAdmin) {
+                        return res.redirect('/admin/dashboard');
+                    }
+                    res.redirect('/report');
+                });
+            })(req, res, next);
+        }
     },
     logout: (req, res) => {
         req.logout();
@@ -39,6 +50,7 @@ module.exports = {
         const confirmpassword = req.body.confirmpassword;
 
         // Validations
+        req.checkBody('username', 'Username field is required').notEmpty();
         req.checkBody('firstname', 'Firstname field is required').notEmpty();
         req.checkBody('lastname', 'Lastname field is required').notEmpty();
         req.checkBody('email', 'Email field is required').notEmpty();
