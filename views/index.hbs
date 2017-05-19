@@ -1,5 +1,20 @@
 <!-- Header -->
 <header class="masthead">
+    {{#if flash.success}}
+            <div class="alert alert-success alert-dismissible fade show">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <p>{{flash.success}}</p>
+            </div>
+            {{else if flash.error}}
+            <div class="alert alert-danger alert-dismissible fade show">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <p>{{flash.error}}</p>
+            </div>
+    {{/if}}
     <div class="container">
         <img class="img-fluid" src="images/profile.png" alt="">
         <div class="intro-text">

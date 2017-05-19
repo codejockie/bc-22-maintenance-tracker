@@ -17,4 +17,10 @@ $('.resolve-button').on('click', function () {
 $('.reject-button').on('click', function () {
     var id = $(this).data().id;
     $('#rejectrequest').val(id);
-})
+});
+
+setTimeout(function() {
+    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+        $(this).remove(); 
+    });
+}, 3000);

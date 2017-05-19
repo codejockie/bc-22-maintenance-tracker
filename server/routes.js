@@ -11,7 +11,7 @@ const isAuthenticated = (req, res, next) => {
     res.redirect('/login');
 };
 
-module.exports.initialise = (router, passport) => {
+module.exports.initialise = (router) => {
     router.get('/', home.index);
     router.get('/logout', auth.logout);
     router.get('/signup', auth.signup);
@@ -27,7 +27,7 @@ module.exports.initialise = (router, passport) => {
     router.post('/reject', admin.reject);
     router.post('/resolve', admin.resolve);
     router.post('/admin/create', personnel.create);
-    router.post('/login', passport.authenticate('local'), auth.login);
+    router.post('/login', auth.login);
     router.post('/signup', auth.register);
 
     return router;

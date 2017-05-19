@@ -1,15 +1,28 @@
 const passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy;
 
-const models = require('../models/index');
 const User = require('../models/user');
 
 module.exports = {
     login: (req, res, next) => {
-        if (req.user.isAdmin) {
-            return res.redirect('/admin/dashboard');
-        }
-        res.redirect('/report');
+        passport.authenticate('local', (err, user, info) => {
+            if (err) {
+                res.flash('error', 'An error occured, kindly try again');
+                return res.redirect(301, '/');
+            }
+            if (!user) {
+                res.flash('error', 'Username or Password incorrect.');
+                return res.redirect(301, '/');
+            }
+            req.logIn(user, (err) => {
+                if (err) { return next(err); }
+                if (req.user.isAdmin) {
+                    return res.redirect('/admin/dashboard');
+                }
+                res.redirect('/report');
+            });
+        })(req, res, next);
+
     },
     logout: (req, res) => {
         req.logout();
@@ -37,7 +50,7 @@ module.exports = {
         const errors = req.validationErrors();
 
         if (errors) {
-            res.render('register', {
+            return res.render('register', {
                 errors
             });
         } else {
@@ -79,16 +92,15 @@ passport.deserializeUser((id, done) => {
 });
 
 passport.use(new LocalStrategy((username, password, done) => {
-    models.User.getUserByUsername(username, (err, user) => {
+    User.getUserByUsername(username, (err, user) => {
         if (err) {
-            res.flash('error', 'Invalid user.')
             return done(err);
         }
         if (!user) {
-            return done(null, false, res.flash('error', 'Invalid Username or Password.'));
+            return done(null, false);
         }
 
-        models.User.comparePassword(password, user.password, (err, isMatch) => {
+        User.comparePassword(password, user.password, (err, isMatch) => {
             if (err) return done(err);
             if (isMatch) {
                 return done(null, user);

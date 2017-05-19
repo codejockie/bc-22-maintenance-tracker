@@ -28,7 +28,7 @@ hbs.registerHelper("inc", (value, options) => {
     return parseInt(value) + 1;
 });
 hbs.registerHelper('currentYear', () => {
-    return new Date().getFullYear()
+    return new Date().getFullYear();
 });
 
 app.use(morgan('dev'));
@@ -49,7 +49,7 @@ app.get('*', (req, res, next) => {
 });
 
 // Get defined routes from routes.js
-const router = routes.initialise(express.Router(), passport);
+const router = routes.initialise(express.Router());
 app.use('/', router);
 
 app.use(express.static(`${__dirname}/public`));
