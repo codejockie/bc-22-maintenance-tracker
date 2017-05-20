@@ -40,6 +40,12 @@ module.exports = {
         res.flash('success', 'You are now logged out');
         res.redirect('/');
     },
+    signup: (req, res) => {
+        const vm = {
+            active: { signup: true }
+        };
+        res.render('register', vm);
+    },
     register: (req, res) => {
         const username = req.body.username;
         const email = req.body.email;
@@ -66,7 +72,7 @@ module.exports = {
                 errors
             });
         } else {
-            const newUser = new models.User({
+            const newUser = new User({
                 firstname,
                 lastname,
                 phone,
@@ -84,12 +90,6 @@ module.exports = {
                 res.redirect(302, '/');
             });
         }
-    },
-    signup: (req, res) => {
-        const vm = {
-            active: { signup: true }
-        };
-        res.render('register', vm);
     }
 };
 

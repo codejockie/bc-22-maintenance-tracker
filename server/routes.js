@@ -8,7 +8,8 @@ const isAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
         return next();
     }
-    res.redirect('/login');
+    res.flash('error', 'Unauthorised User');
+    res.redirect('/');
 };
 
 module.exports.initialise = (router) => {
@@ -18,7 +19,7 @@ module.exports.initialise = (router) => {
     router.get('/report', isAuthenticated, report.index);
     router.get('/admin/dashboard', isAuthenticated, admin.index);
     router.get('/admin/personnel', isAuthenticated, personnel.index);
-    router.get('/admin/new', isAuthenticated, personnel.new);
+    router.get('/admin/personnel/new', isAuthenticated, personnel.new);
 
 
     // POST
@@ -26,7 +27,7 @@ module.exports.initialise = (router) => {
     router.post('/approve', admin.approve);
     router.post('/reject', admin.reject);
     router.post('/resolve', admin.resolve);
-    router.post('/admin/create', personnel.create);
+    router.post('/create', personnel.create);
     router.post('/login', auth.login);
     router.post('/signup', auth.register);
 
