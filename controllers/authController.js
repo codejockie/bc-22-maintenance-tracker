@@ -56,20 +56,33 @@ module.exports = {
         const confirmpassword = req.body.confirmpassword;
 
         // Validations
-        req.checkBody('username', 'Username field is required').notEmpty();
-        req.checkBody('firstname', 'Firstname field is required').notEmpty();
-        req.checkBody('lastname', 'Lastname field is required').notEmpty();
-        req.checkBody('email', 'Email field is required').notEmpty();
-        req.checkBody('email', 'You must use a valid email').isEmail();
-        req.checkBody('phone', 'Phone number is required').notEmpty();
-        req.checkBody('password', 'Password field is required').notEmpty();
-        req.checkBody('confirmpassword', 'Passwords do not match').equals(req.body.password);
+        req.checkBody('username', 'Username field is required.').notEmpty();
+        req.checkBody('username', 'Username must be alphanumeric text.').isAlpha();
+        req.checkBody('firstname', 'Firstname field is required.').notEmpty();
+        req.checkBody('firstname', 'Firstname must be alphanumeric text.').isAlpha();      
+        req.checkBody('lastname', 'Lastname field is required.').notEmpty();
+        req.checkBody('lastname', 'Lastname must be alphanumeric text.').isAlpha();
+        req.checkBody('email', 'Email field is required.').notEmpty();
+        req.checkBody('email', 'You must use a valid email.').isEmail();
+        req.checkBody('phone', 'Phone number is required.').notEmpty();
+        req.checkBody('password', 'Password field is required.').notEmpty();
+        req.checkBody('confirmpassword', 'Passwords do not match.').equals(req.body.password);
+
+        req.sanitize('username').trim();
+        req.sanitize('firstname').trim();
+        req.sanitize('lastname').trim();
+        req.sanitize('email').trim();
 
         const errors = req.validationErrors();
 
         if (errors) {
             return res.render('register', {
-                errors
+                errors,
+                username,
+                firstname,
+                lastname,
+                email,
+                phone
             });
         } else {
             const newUser = new User({
