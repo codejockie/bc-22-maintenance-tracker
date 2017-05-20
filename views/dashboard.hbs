@@ -48,16 +48,16 @@
                     <button type="button" class="resolve-button btn btn-primary btn-sm" data-id="{{_id}}">Mark as Resolved</button>                    
                     {{/if}}
                     {{#if approvalStatus}}
+                    <button type="submit" class="btn btn-success btn-sm" disabled>Approved</button>
+                    <button type="submit" class="reject-button btn btn-danger btn-sm" disabled>Reject/Comment</button>
+                    {{else if rejectionStatus}}
                     <button type="submit" class="btn btn-success btn-sm" disabled>Approve</button>
+                    <button type="submit" class="reject-button btn btn-danger btn-sm" disabled>Rejected</button>
                     {{else}}
                     <form action="/approve" method="POST" class="form-inline">
                         <input type="hidden" name="approverequest" value="{{_id}}">
                         <button type="submit" class="btn btn-success btn-sm">Approve</button>
                     </form>
-                    {{/if}}
-                    {{#if rejectionStatus}}
-                    <button type="submit" class="reject-button btn btn-danger btn-sm" disabled>Reject/Comment</button>
-                    {{else}}
                     <button type="submit" class="reject-button btn btn-danger btn-sm" data-toggle="modal" data-target="#commentModal" data-id="{{_id}}">Reject/Comment</button>
                     {{/if}}
                 </div>
