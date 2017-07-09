@@ -1,4 +1,3 @@
-const env = require('../../env');
 const Nexmo = require('nexmo');
 const nexmo = new Nexmo({
     apiKey: process.env.API_KEY,
