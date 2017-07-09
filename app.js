@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express'),
     hbs = require('hbs'),
     bodyParser = require('body-parser'),
@@ -9,16 +10,14 @@ const express = require('express'),
     session = require('express-session'),
     expressValidator = require('express-validator'),
     bcrypt = require('bcryptjs'),
-    flash = require('express-flash-2'),
-    dotenv = require('dotenv');
+    flash = require('express-flash-2');
 
 
-dotenv.config();
-let app = express();
-const port = process.env.PORT || 4000;
-const url = app.get('env') === 'development'
-    ? 'mongodb://localhost:27017/mTracker'
-    : process.env.DB;
+const app = express();
+const port = process.env.PORT || 4200;
+const url = process.env.NODE_ENV === 'development'
+    ? process.env.MONGODB_URL
+    : process.env.MLAB_URL;
 
 // view engine setup
 app.set('views', `${__dirname}/views`);
@@ -55,10 +54,5 @@ app.use('/', router);
 app.use(express.static(`${__dirname}/public`));
 
 mongoose.connect(url);
-mongoose.connection.on('open', () => {
-    console.log('Mongoose connected');
-});
 
-app.listen(port, () => {
-    console.log(`Server up: http://localhost:${port}`);
-}); 
+app.listen(port); 
